@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Application03</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="Titles">
+        <item>項目１</item>
+        <item>項目２</item>
+        <item>項目３</item>
+    </string-array>
+
+    <string-array name="Contents">
+        <item>項目１の内容</item>
+        <item>項目２の内容</item>
+        <item>項目３の内容</item>
+    </string-array>
+
+</resources>

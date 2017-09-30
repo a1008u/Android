@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Application02</string>
+
+    <string-array name="items2">
+        <item>listView①を利用項目1</item>
+        <item>listView①を利用項目2</item>
+        <item>listView①を利用項目3</item>
+    </string-array>
+
+    <string-array name="items3">
+        <item>listView②を利用項目1</item>
+        <item>listView②を利用項目2</item>
+        <item>listView②を利用項目3</item>
+    </string-array>
+
+    <string-array name="items4">
+        <item>listActivityを利用項目1</item>
+        <item>listActivityを利用項目2</item>
+        <item>listActivityを利用項目3</item>
+    </string-array>
+</resources>
