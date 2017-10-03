@@ -64,8 +64,7 @@ class Main3Activity : AppCompatActivity() {
             currentX = x0 - bitmapWidth / 2
             currentY = y0 - bitmapHeight / 2
 
-            mPainter.setAntiAlias(true)
-
+            mPainter.isAntiAlias = true
 
             val mySurfaceHolderCallback = MySurfaceHolderCallback()
             surfaceHolder = holder
@@ -78,7 +77,6 @@ class Main3Activity : AppCompatActivity() {
 
             override fun surfaceCreated(surfaceHolder: SurfaceHolder) {
                 mDrawingThread = Thread(Runnable {
-                    var canvas: Canvas? = null
                     for (i in 0 until REPEAT_COUNT) {
                         try {
                             Thread.sleep(SLEEP_MILLI_SEC.toLong())
@@ -86,7 +84,7 @@ class Main3Activity : AppCompatActivity() {
                             e.printStackTrace()
                         }
 
-                        canvas = surfaceHolder.lockCanvas()
+                        val canvas = surfaceHolder.lockCanvas()
                         if (null != canvas) {
 
                             drawCanvas(canvas)
@@ -103,18 +101,17 @@ class Main3Activity : AppCompatActivity() {
             override fun surfaceDestroyed(surfaceHolder: SurfaceHolder) {}
 
 
-            private fun drawCanvas(canvas: Canvas?) {
-                canvas!!.drawColor(Color.DKGRAY)
+            private fun drawCanvas(canvas: Canvas) {
+                canvas.drawColor(Color.DKGRAY)
                 val rotationDegree = 10f
 
-                canvasWidth = canvas!!.width
-                canvasHeight = canvas!!.height
+                canvasWidth = canvas.width
+                canvasHeight = canvas.height
 
-                canvas!!.rotate(rotation, currentX + bitmapWidth / 2,
-                        currentY + bitmapHeight / 2)
+                canvas.rotate(rotation, currentX + bitmapWidth / 2,currentY + bitmapHeight / 2)
                 rotation += rotationDegree
 
-                canvas!!.drawBitmap(bitmap, currentX, currentY, mPainter)
+                canvas.drawBitmap(bitmap, currentX, currentY, mPainter)
             }
 
 

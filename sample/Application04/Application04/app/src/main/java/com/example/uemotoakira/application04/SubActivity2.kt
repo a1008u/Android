@@ -11,25 +11,17 @@ import android.widget.Button
  */
 class SubActivity2 : Activity() {
 
-    private val KEY: String = "EDIT_TEXT_KEY"
-    private val SUB_KEY = "SUB_KEY"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sub2)
 
         val sub2EditText = findViewById<EditText>(R.id.sub2EditText)
-        var str = intent.getStringExtra(KEY)
-        sub2EditText.setText(str)
+        sub2EditText.setText(intent.getStringExtra("EDIT_TEXT_KEY"))
 
+        // setResult(呼び出し元に処理結果の状態を返すための変数, 呼び出し元に返すためのデータを格納したIntent)
         findViewById<Button>(R.id.sub2button).setOnClickListener {
-            val newIntent = intent.putExtra(SUB_KEY, sub2EditText.text.toString())
-
-            setResult(RESULT_OK, newIntent)
+            intent.putExtra("SUB_KEY", sub2EditText.text.toString()).let { setResult(RESULT_OK, it) }
             finish()
         }
-
-
-
     }
 }

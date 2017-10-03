@@ -1,5 +1,6 @@
 package com.example.uemotoakira.application04
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -10,30 +11,22 @@ import android.widget.EditText
 import android.widget.Toast
 
 
-
+/**
+ * Intentクラスは「呼び出したいActivityを決めるための情報」と、「そのActivityに渡したいデータ」を格納する入れ物
+ */
 class MainActivity : Activity() {
 
-    // SubActivity2用
-    private val KEY: String = "EDIT_TEXT_KEY"
-    private val SUB_KEY = "SUB_KEY"
-    private val SUB_ACTIVITY_REQUEST = 1
+    val SUB_ACTIVITY_REQUEST = 1
 
-    // SubActivity3用
-    val MYACTION = "com.example.uemotoakira.application04.SubActivity3"
-
-    // SubActivity4用
-    val MYACTION4 = "com.example.uemotoakira.application04_1.SubActionX"
-
-    // SubActivity6用
-    val MYACTION6 = "com.example.uemotoakira.appplication04_2.SubActivityY"
-
-
+    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         /**
-         *
+         *  明示的Intent(値をやり取りしない場合)
+         *  Intent(呼び出し元のクラスのContext, 実行したいクラス)
+         *  ActivityクラスはContextクラスの間接的なサブクラスなので、Activityから呼び出したい場合「this」を渡す。
          */
         findViewById<Button>(R.id.button).setOnClickListener {
             val intent = Intent(this@MainActivity, SubActivity1::class.java)
@@ -41,61 +34,68 @@ class MainActivity : Activity() {
         }
 
         /**
-         *
+         *　明示的Intent(値をやり取りする場合)
+         * startActivityForResult(実行したいActivityの情報や渡したいデータを格納したIntent, Activityを識別)
          */
         findViewById<Button>(R.id.button2).setOnClickListener {
-
-            val mainEditText = findViewById<EditText>(R.id.editText2)
-            val textString = mainEditText.text.toString()
-
-            val intent = Intent(this@MainActivity, SubActivity2::class.java)
-            intent.putExtra(KEY, textString)
-
-            startActivityForResult(intent, SUB_ACTIVITY_REQUEST)
+            Intent(this@MainActivity, SubActivity2::class.java).let {
+                val textString =  findViewById<EditText>(R.id.editText2).run { text.toString() }
+                it.putExtra("EDIT_TEXT_KEY", textString)
+                startActivityForResult(it, SUB_ACTIVITY_REQUEST)
+            }
         }
 
         /**
-         *
+         *  暗黙的Intent(同一アプリケーション内での実行)
          */
         findViewById<Button>(R.id.button3).setOnClickListener {
-            val intent = Intent(MYACTION)
-            startActivity(intent)
+            // SubActivity3用
+            val MYACTION = "com.example.uemotoakira.application04.SubActivity3"
+            Intent(MYACTION).let { startActivity(it) }
         }
 
         /**
-         *
+         *　暗黙的Intent(自作アプリケーションの実行)
          */
         findViewById<Button>(R.id.button4).setOnClickListener {
+            // SubActivity4用
+            val MYACTION4 = "com.example.uemotoakira.application04_1.SubActionX"
             Intent(MYACTION4).let { startActivity(it)}
         }
 
 
         /**
-         *
+         *　暗黙的Intent(既存のアプリケーションの実行)
+         * Uri.parseより、実行されるアプリケーションが異なる
+         * http: https:　→　Webプラウザ
+         * tel →　電話をかけるアプリケーション
+         * mailto →　mailアプリケーション
          */
         findViewById<Button>(R.id.button5).setOnClickListener {
-
-            val editText = findViewById<EditText>(R.id.editText5)
-            val uri = Uri.parse(editText.text.toString())
-            val intent = Intent(Intent.ACTION_VIEW, uri)
+            val editText = findViewById<EditText>(R.id.editText5).text.toString()
+            val intent = Uri.parse(editText).let {Intent(Intent.ACTION_VIEW, it)}
             startActivity(intent)
         }
 
         /**
-         *
+         *　パーミッション
+         * AndroidManifest.xmlに「uses-permission」を記載する
          */
         findViewById<Button>(R.id.button6).setOnClickListener {
+            // SubActivity6用
+            val MYACTION6 = "com.example.uemotoakira.appplication04_2.SubActivityY"
             Intent(MYACTION6).let { startActivity(it)}
         }
 
     }
 
+    /**
+     *　SubActivity2のボタン処理
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (requestCode == SUB_ACTIVITY_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
-                val str = data.getStringExtra(SUB_KEY)
-
-                Toast.makeText(this@MainActivity, str, Toast.LENGTH_SHORT).show()
+                data.getStringExtra("SUB_KEY").let { Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show() }
             }
         }
     }
