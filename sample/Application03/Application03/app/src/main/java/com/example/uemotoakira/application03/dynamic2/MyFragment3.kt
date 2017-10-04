@@ -14,25 +14,7 @@ import android.widget.ArrayAdapter
 
 class MyFragment3 : ListFragment() {
 
-    private var listener: ListSelectionListener? = null
-
-    /**
-     *
-     */
-    override fun onCreateView(inflater: LayoutInflater?
-                              , container: ViewGroup?
-                              , savedInstanceState: Bundle?): View {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    /**
-     *
-     */
-    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        super.onListItemClick(l, v, position, id)
-        Toast.makeText(activity, "position=" + position, Toast.LENGTH_SHORT).show()
-        listener?.onListSelection(position)
-    }
+    private lateinit var listener: ListSelectionListener
 
     /**
      *
@@ -53,6 +35,15 @@ class MyFragment3 : ListFragment() {
     /**
      *
      */
+    override fun onCreateView(inflater: LayoutInflater?
+                              , container: ViewGroup?
+                              , savedInstanceState: Bundle?): View {
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    /**
+     *
+     */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -61,4 +52,13 @@ class MyFragment3 : ListFragment() {
         listView.choiceMode = ListView.CHOICE_MODE_SINGLE
     }
 
+    /**
+     *
+     */
+    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
+        super.onListItemClick(l, v, position, id)
+
+        Toast.makeText(activity, "position=" + position, Toast.LENGTH_SHORT).show()
+        listener.onListSelection(position) // Main3Activityへ
+    }
 }

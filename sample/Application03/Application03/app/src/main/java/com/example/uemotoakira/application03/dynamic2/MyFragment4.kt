@@ -10,15 +10,7 @@ import android.widget.TextView
 
 class MyFragment4 : Fragment() {
 
-    private var textView: TextView? = null
-
-    /**
-     * リストの項目を押下時に起動する。要求元はMain3Activityです。
-     */
-    fun setContentAtIndex(newIndex: Int) {
-        var contentArray: Array<String> = resources.getStringArray(R.array.Contents)
-        textView?.text = contentArray[newIndex]
-    }
+    private lateinit var textView: TextView
 
     /**
      *
@@ -37,5 +29,12 @@ class MyFragment4 : Fragment() {
         textView = activity.findViewById(R.id.fragment4_textView)
     }
 
+    /**
+     * リストの項目を押下時に起動する。要求元はMain3Activityです。
+     */
+    fun setContentAtIndex(newIndex: Int) {
+        var contentArray: Array<String> = resources.getStringArray(R.array.Contents)
+        textView.text = contentArray[newIndex]
+    }
 
 }
