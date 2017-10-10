@@ -21,9 +21,7 @@ class Main3Activity : AppCompatActivity() {
 
         val bitmap = BitmapFactory.decodeResource(resources, R.drawable.drawable01)
         val mySurfaceView = MySurfaceView(this, bitmap)
-
-        val constraintLayout = findViewById<ConstraintLayout>(R.id.activity_main3)
-        constraintLayout.addView(mySurfaceView)
+        findViewById<ConstraintLayout>(R.id.activity_main3).run { addView(mySurfaceView) }
     }
 
     private inner class MySurfaceView(context: Context, private val bitmap: Bitmap) : SurfaceView(context) {
@@ -41,27 +39,24 @@ class Main3Activity : AppCompatActivity() {
         private val surfaceHolder: SurfaceHolder
         private val mPainter = Paint()
 
-
         init {
-
             val display = windowManager.defaultDisplay
-            val point = Point(0, 0)
-            display.getSize(point) // Display Size
+            val point = Point(0, 0).also { display.getSize(it) } // Display Size
+
             val displayWidth = point.x
-            val displayHeight = point.y
-            bitmapHeight = bitmap.height
-            bitmapWidth = bitmap.width
-
-
             val x0 = (displayWidth / 2).toFloat()
+
+            val displayHeight = point.y
             val y0 = (displayHeight / 2).toFloat()
 
             val r = Random().nextFloat()
-
             dx = (2.0f * r - 1.0f) * STEP
             dy = (2.0f * r - 1.0f) * STEP
 
+            bitmapHeight = bitmap.height
             currentX = x0 - bitmapWidth / 2
+
+            bitmapWidth = bitmap.width
             currentY = y0 - bitmapHeight / 2
 
             mPainter.isAntiAlias = true
@@ -86,7 +81,6 @@ class Main3Activity : AppCompatActivity() {
 
                         val canvas = surfaceHolder.lockCanvas()
                         if (null != canvas) {
-
                             drawCanvas(canvas)
                             surfaceHolder.unlockCanvasAndPost(canvas)
                             move()
@@ -97,18 +91,16 @@ class Main3Activity : AppCompatActivity() {
             }
 
             override fun surfaceChanged(surfaceHolder: SurfaceHolder, i: Int, i1: Int, i2: Int) {}
-
             override fun surfaceDestroyed(surfaceHolder: SurfaceHolder) {}
-
 
             private fun drawCanvas(canvas: Canvas) {
                 canvas.drawColor(Color.DKGRAY)
-                val rotationDegree = 10f
 
                 canvasWidth = canvas.width
                 canvasHeight = canvas.height
 
                 canvas.rotate(rotation, currentX + bitmapWidth / 2,currentY + bitmapHeight / 2)
+                val rotationDegree = 10f
                 rotation += rotationDegree
 
                 canvas.drawBitmap(bitmap, currentX, currentY, mPainter)
@@ -116,18 +108,10 @@ class Main3Activity : AppCompatActivity() {
 
 
             private fun move() {
-                if (currentX + dx < 0) {
-                    dx = -dx
-                }
-                if (currentY + dy < 0) {
-                    dy = -dy
-                }
-                if (canvasWidth < currentX + dx + bitmapWidth.toFloat()) {
-                    dx = -dx
-                }
-                if (canvasHeight < currentY + dy + bitmapHeight.toFloat()) {
-                    dy = -dy
-                }
+                if (currentX + dx < 0) dx = -dx
+                if (currentY + dy < 0) dy = -dy
+                if (canvasWidth < currentX + dx + bitmapWidth.toFloat()) dx = -dx
+                if (canvasHeight < currentY + dy + bitmapHeight.toFloat()) dy = -dy
                 currentX += dx
                 currentY += dy
             }

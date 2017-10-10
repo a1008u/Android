@@ -26,23 +26,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 動的にImageViewを使う
         val imageView = ImageView(this).apply {
 
-            val drawable = ContextCompat.getDrawable(this@MainActivity, R.drawable.drawable01)
-            setImageDrawable(drawable)
+                            // drawableから取得　→　設定
+                            val drawable = ContextCompat.getDrawable(this@MainActivity
+                                                                        , R.drawable.drawable01)
+                            setImageDrawable(drawable)
 
-            var params = ConstraintLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT
-                                                        , RelativeLayout.LayoutParams.MATCH_PARENT)
-            layoutParams = params
-        }
-
+                            //　配置設定
+                            var params = ConstraintLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT
+                                                                        , RelativeLayout.LayoutParams.MATCH_PARENT)
+                            layoutParams = params
+                        }
         findViewById<ConstraintLayout>(R.id.activity_main).addView(imageView)
 
-
+        //
         findViewById<Button>(R.id.canvas1).setOnClickListener{
             Intent(this@MainActivity, Main2Activity::class.java).let { startActivity(it) }
         }
 
+        //
         findViewById<Button>(R.id.canvas2).setOnClickListener{
             Intent(this@MainActivity, Main2Activity::class.java).let { startActivity(it) }
         }
