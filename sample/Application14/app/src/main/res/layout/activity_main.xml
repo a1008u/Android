@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.uemotoakira.application14.MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Hello World!"
+        app:layout_constraintStart_toEndOf="@+id/textViewTime"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="26dp"
+        android:text="測定時刻"
+        app:layout_constraintEnd_toEndOf="@+id/textViewLongitude"
+        app:layout_constraintStart_toEndOf="@+id/textViewLongitude"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textViewLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewTime"
+        android:layout_alignStart="@+id/textViewTime"
+        android:layout_below="@+id/textViewTime"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="19dp"
+        android:text="経度"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTime" />
+
+    <TextView
+        android:id="@+id/textViewLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewLongitude"
+        android:layout_alignStart="@+id/textViewLongitude"
+        android:layout_below="@+id/textViewLongitude"
+        android:layout_marginTop="13dp"
+        android:text="緯度"
+        app:layout_constraintStart_toStartOf="@+id/textViewLongitude"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLongitude" />
+
+    <TextView
+        android:id="@+id/textViewAltitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewLatitude"
+        android:layout_alignStart="@+id/textViewLatitude"
+        android:layout_below="@+id/textViewLatitude"
+        android:layout_marginTop="16dp"
+        android:text="高度"
+        app:layout_constraintStart_toStartOf="@+id/textViewLatitude"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLatitude" />
+
+    <TextView
+        android:id="@+id/textViewAccuracy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewAltitude"
+        android:layout_alignStart="@+id/textViewAltitude"
+        android:layout_below="@+id/textViewAltitude"
+        android:layout_marginTop="16dp"
+        android:text="精度"
+        app:layout_constraintStart_toStartOf="@+id/textViewAltitude"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAltitude" />
+
+</android.support.constraint.ConstraintLayout>

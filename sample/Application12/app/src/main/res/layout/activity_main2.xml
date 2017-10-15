@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.uemotoakira.application12.Main2Activity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="75dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="62dp"
+        android:text="Hello World!"
+        app:layout_constraintEnd_toEndOf="@+id/buttonPlay"
+        app:layout_constraintStart_toStartOf="@+id/buttonRecord"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="30dp"
+        android:text="Record"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/buttonPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonRecord"
+        android:layout_alignBottom="@+id/buttonRecord"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/buttonRecord"
+        android:layout_toRightOf="@+id/buttonRecord"
+        android:text="Play"
+        app:layout_constraintStart_toEndOf="@+id/buttonRecord"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.uemotoakira.application13.MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="106dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="106dp"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="21dp"
+        android:text="X"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewY"
+        app:layout_constraintEnd_toStartOf="@+id/textViewY"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textViewX"
+        android:layout_alignRight="@+id/textViewX"
+        android:layout_below="@+id/textViewX"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="212dp"
+        android:text="Y"
+        app:layout_constraintEnd_toStartOf="@+id/textViewZ"
+        app:layout_constraintStart_toEndOf="@+id/textViewX"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewZ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textViewY"
+        android:layout_alignRight="@+id/textViewY"
+        android:layout_below="@+id/textViewY"
+        android:layout_marginEnd="16dp"
+        android:text="Z"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewY" />
+
+</android.support.constraint.ConstraintLayout>
