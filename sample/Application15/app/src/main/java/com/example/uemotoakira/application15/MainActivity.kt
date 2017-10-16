@@ -7,7 +7,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.content.Intent
 
-
+/**
+ *
+ * ・少量の単純な構造のデータ
+ * ・内部ストレージ(Internal Storage)ファイル
+ * ・外部ストレージ(External Storage)ファイル
+ *
+ *
+ * 【少量の単純な構造のデータ】
+ * ・android.content.SharedPreferences
+ * ・android.content.SharedPreferences.Editor
+ *
+ *
+ */
 class MainActivity : AppCompatActivity() {
 
     private val PREF_NAME = "NAME"
@@ -19,27 +31,44 @@ class MainActivity : AppCompatActivity() {
 
         val editTextName =  findViewById<EditText>(R.id.editTextName)
         val editTextId = findViewById<EditText>(R.id.editTextId)
-        val buttonLoad = findViewById<Button>(R.id.buttonLoad)
-        val buttonSave = findViewById<Button>(R.id.buttonSave)
 
-        val  sharedPref: SharedPreferences = getPreferences(MODE_PRIVATE)
+        /**
+         * getPreferences(mode: int) :SharedPreferences
+         * SharedPreferencesオブジェクトを取得します
+         *  mode::動作のモードを指定する引数
+         */
+        val sharedPref: SharedPreferences = getPreferences(MODE_PRIVATE)
 
         // 保存ボタンクリック時の処理
-        buttonSave.setOnClickListener {
-            // データを保存する
-            val editor = sharedPref.edit()
-            editor.putString(PREF_NAME, editTextName.text.toString())
-            editor.putString(PREF_ID, editTextId.text.toString())
-            editor.apply()  //　又は editor.commit();
+        findViewById<Button>(R.id.buttonSave).setOnClickListener {
+            /**
+             * データを保存する
+             * edit() :SharedPreferences.Editor
+             * SharePreferences.Editorのオブジェクトを取得
+             *
+             * putString(key: String, value: String) :SharedPreference.Editor
+             * データをキーと値の組として保存する
+             */
+            val editor = sharedPref.edit().apply { putString(PREF_NAME, editTextName.text.toString())
+                                                   putString(PREF_ID, editTextId.text.toString())
+                                                 }
+            editor.apply()  //　又は editor.commit();　保存
         }
 
         // 読み込みボタンクリック時の処理
-        buttonLoad.setOnClickListener {
-            // データを読み込んで画面に表示する
-            val name = sharedPref.getString(PREF_NAME, "")
-            val id = sharedPref.getString(PREF_ID, "")
-            editTextName.setText(name)
-            editTextId.setText(id)
+        findViewById<Button>(R.id.buttonLoad).setOnClickListener {
+            /**
+             * データを読み込んで画面に表示する
+             *
+             * getString(key:String, defValue)
+             * キーに対応する値を取得する
+             * 　　　　key::取り出したい値のキーを指定
+             * 　defValue::キーが存在しない場合に返す値を設定
+             */
+            sharedPref.let {
+                editTextName.setText(it.getString(PREF_NAME, ""))
+                editTextId.setText(it.getString(PREF_ID, ""))
+            }
         }
 
         // InternalStorageActivityの実行ボタン

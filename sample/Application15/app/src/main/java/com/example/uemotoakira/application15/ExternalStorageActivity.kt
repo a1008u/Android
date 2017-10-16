@@ -11,8 +11,6 @@ import java.io.*
 
 
 
-
-
 class ExternalStorageActivity : AppCompatActivity() {
 
     private val TAG = "My Data External File01"
@@ -26,31 +24,34 @@ class ExternalStorageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_external_storage)
 
         val editText = findViewById<EditText>(R.id.editText3)
-        val buttonSave = findViewById<Button>(R.id.buttonSave3)
-        val buttonLoad = findViewById<Button>(R.id.buttonLoad3)
 
-        if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
+        /**
+         * getExternalStorageState(): String
+         * 外部ストレージの状態を取得する（ストレージが存在して利用可能な場合はMEDIA_MOUNTEDを返す）
+         *
+         * getExternalFilesDir(type: String): File
+         * 外部ストレージのディレクトリを取得する
+         * type::nullまたは外部ストレージ以下のディレクトリを指定するために値を設定する
+         * 　　　 nullを指定した場合は外部ストレージのルートディレクトリが指定される
+         *
+         */
+        if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState())
             externalFile = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName)
-        } else {
+        else
             // 外部ストレージが使用できない場合
             Toast.makeText(this@ExternalStorageActivity, "外部ストレージが使用できません", Toast.LENGTH_SHORT).show()
-        }
 
         // データを保存する
-        buttonSave.setOnClickListener {
+        findViewById<Button>(R.id.buttonSave3).setOnClickListener {
             if (externalFile != null) {
                 try {
                     // ファイル名からFileOutputStreamを作成し、PrintWriterを作成する
-                    val fos = FileOutputStream(externalFile)
-                    val pw = PrintWriter(BufferedWriter(
-                            OutputStreamWriter(fos)))
+                    val pw =  FileOutputStream(externalFile).let { PrintWriter(BufferedWriter(OutputStreamWriter(it)))}
 
-                    // PrintWriterにEditTextの内容を出力する
-                    val str = editText.text.toString()
-                    pw.print(str)
-
-                    // PrintWriterを閉じる
+                    // PrintWriterにEditTextの内容を出力 + 閉じる
+                    pw.print(editText.text.toString())
                     pw.close()
+
                 } catch (e: Exception) {
                     Log.d(TAG, "ファイルの保存に失敗しました", e)
                 }
@@ -59,20 +60,14 @@ class ExternalStorageActivity : AppCompatActivity() {
         }
 
         // データを読み込んで画面に表示する
-        buttonLoad.setOnClickListener {
+        findViewById<Button>(R.id.buttonLoad3).setOnClickListener {
             if (externalFile != null) {
                 // データを読み込んで画面に表示する
                 try {
-                    val fis = FileInputStream(externalFile)
-                    val br = BufferedReader(InputStreamReader(fis))
-
                     // ファイルを一行ずつ読み込み、改行を付けながらStringBufferに格納する
                     val stringBuffer = StringBuffer()
-                    val result: List<String> = br.useLines { lineSequences: Sequence<String> ->
-                        lineSequences
-                                .take(10)
-                                .toList()
-                    }
+                    val br = FileInputStream(externalFile).let { BufferedReader(InputStreamReader(it))}
+                    val result: List<String> = br.useLines { lineSequences: Sequence<String> -> lineSequences.take(10).toList() }
                     result.forEach{
                         stringBuffer.append(it)
                         stringBuffer.append(SEPARATOR)

@@ -16,8 +16,6 @@ import java.util.*
 import android.location.LocationListener
 
 
-
-
 class MainActivity : AppCompatActivity() {
 
     private val MIN_TIME = (1000 * 10).toLong() // 更新時間の最小値（10秒）
